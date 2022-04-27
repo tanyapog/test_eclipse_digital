@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:test_eclipse_digital/pages/user/users_overview_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,28 +15,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Тестовое задание для Eclipse Digital'),
+      home: const UsersOverviewPage(),
       debugShowCheckedModeBanner: false,
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: const Center(),
     );
   }
 }
