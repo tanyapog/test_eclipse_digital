@@ -1,7 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:test_eclipse_digital/infrastructure/user_repository.dart';
 import 'package:test_eclipse_digital/model/user/user.dart';
 import 'package:test_eclipse_digital/presentation/custom_widgets/error_display.dart';
+import 'package:test_eclipse_digital/presentation/routes/router.gr.dart';
 
 class UsersOverviewPage extends StatefulWidget {
   const UsersOverviewPage({Key? key}) : super(key: key);
@@ -55,6 +57,7 @@ class UsersOverviewBody extends StatelessWidget {
           child: ListView.builder(
             itemCount: users.length,
             itemBuilder: (context, i) => ListTile(
+              onTap: () => AutoRouter.of(context).push(UserRoute(user: users[i])),
               title: Text(users[i].username),
               subtitle: Text(users[i].name),
             ),
