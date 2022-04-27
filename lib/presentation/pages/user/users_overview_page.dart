@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:test_eclipse_digital/infrastructure/user_repository.dart';
 import 'package:test_eclipse_digital/model/user/user.dart';
-import 'package:test_eclipse_digital/pages/custom_widgets/error_display.dart';
+import 'package:test_eclipse_digital/presentation/custom_widgets/error_display.dart';
 
 class UsersOverviewPage extends StatefulWidget {
   const UsersOverviewPage({Key? key}) : super(key: key);
