@@ -1,8 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:test_eclipse_digital/model/user/user.dart';
 import 'package:test_eclipse_digital/presentation/pages/user/widgets/address_card.dart';
 import 'package:test_eclipse_digital/presentation/pages/user/widgets/company_card.dart';
+import 'package:test_eclipse_digital/presentation/routes/router.gr.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class UserPage extends StatelessWidget {
@@ -42,6 +44,10 @@ class UserPage extends StatelessWidget {
           ),
           CompanyCard(company: user.company),
           AddressCard(address: user.address),
+          TextButton(onPressed: () => AutoRouter.of(context)
+              .push(PostsOverviewRoute(userId: user.id)),
+            child: const Text('Posts'),
+          ),
         ],
       ),
     );
