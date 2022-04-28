@@ -1,7 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:test_eclipse_digital/infrastructure/post_repository.dart';
 import 'package:test_eclipse_digital/model/post/post.dart';
 import 'package:test_eclipse_digital/presentation/custom_widgets/error_display.dart';
+import 'package:test_eclipse_digital/presentation/routes/router.gr.dart';
 
 class PostsOverviewPage extends StatefulWidget {
   final int userId;
@@ -56,6 +58,7 @@ class PostsOverviewBody extends StatelessWidget {
               itemBuilder: (context, i) => Card(
                 elevation: 10,
                 child: ListTile(
+                  onTap: () => AutoRouter.of(context).push(PostRoute(post: posts[i])),
                   title: Text(posts[i].title),
                   subtitle: Text(posts[i].body,
                     overflow: TextOverflow.ellipsis,
