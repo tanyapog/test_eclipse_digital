@@ -23,9 +23,7 @@ class _PostsOverviewPageState extends State<PostsOverviewPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title:  const Text('Posts'),
-      ),
+      appBar: AppBar(title:  const Text('Posts'),),
       body: FutureBuilder<List<Post>>(
         future: futurePosts,
         builder: (context, snapshot) {
@@ -38,7 +36,6 @@ class _PostsOverviewPageState extends State<PostsOverviewPage> {
           }
           return const CircularProgressIndicator();
         },
-
       ),
     );
   }

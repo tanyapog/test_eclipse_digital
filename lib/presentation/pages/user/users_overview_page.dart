@@ -24,9 +24,7 @@ class _UsersOverviewPageState extends State<UsersOverviewPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Users'),
-      ),
+      appBar: AppBar(title: const Text('Users'),),
       body: FutureBuilder<List<User>>(
         future: futureUsers,
         builder: (context, snapshot) {
