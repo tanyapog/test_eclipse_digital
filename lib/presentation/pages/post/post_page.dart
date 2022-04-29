@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:test_eclipse_digital/model/post/post.dart';
 import 'package:test_eclipse_digital/presentation/pages/post/widgets/Inherited_post.dart';
+import 'package:test_eclipse_digital/presentation/pages/post/widgets/comments_list.dart';
 
 class PostPage extends StatelessWidget {
   final Post post;
@@ -13,14 +14,16 @@ class PostPage extends StatelessWidget {
       body: InheritedPost(
         post: post,
         child: Container(
-          margin: const EdgeInsets.all(8),
+          margin: const EdgeInsets.all(20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              _Summary(),
-              SizedBox(height: 8,),
-              _PostBody(),
-              // CommentsList(),
+            children: [
+              const _Summary(),
+              const SizedBox(height: 8,),
+              const _PostBody(),
+              Flexible(
+                child: CommentsList(postId: post.id)
+              ),
             ],
           ),
         ),
@@ -38,8 +41,8 @@ class _Summary extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: Text(
         InheritedPost.of(context).post.title,
-        style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w600,),
-        ),
+        style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w600, color: Colors.teal),
+      ),
     );
   }
 }
@@ -53,7 +56,7 @@ class _PostBody extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: Text(
         InheritedPost.of(context).post.body,
-        // style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w300,),
+        style: const TextStyle(fontSize: 16,),
       ),
     );
   }
