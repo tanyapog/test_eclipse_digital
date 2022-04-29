@@ -29,7 +29,7 @@ class _UsersOverviewPageState extends State<UsersOverviewPage> {
         future: futureUsers,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return UsersOverviewBody(users: snapshot.data!,);
+            return _UsersOverviewBody(users: snapshot.data!,);
           } else if (snapshot.hasError) {
             return ErrorDisplay(
               error: 'Failed to load users',
@@ -42,10 +42,10 @@ class _UsersOverviewPageState extends State<UsersOverviewPage> {
   }
 }
 
-class UsersOverviewBody extends StatelessWidget {
+class _UsersOverviewBody extends StatelessWidget {
   final List<User> users;
 
-  const UsersOverviewBody({Key? key, required this.users}) : super(key: key);
+  const _UsersOverviewBody({Key? key, required this.users}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

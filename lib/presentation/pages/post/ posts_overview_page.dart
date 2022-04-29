@@ -30,7 +30,7 @@ class _PostsOverviewPageState extends State<PostsOverviewPage> {
         future: futurePosts,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return PostsOverviewBody(posts: snapshot.data!);
+            return _PostsOverviewBody(posts: snapshot.data!);
           } else if (snapshot.hasError) {
             return ErrorDisplay(
               error: 'Failed to load posts',
@@ -43,10 +43,9 @@ class _PostsOverviewPageState extends State<PostsOverviewPage> {
   }
 }
 
-class PostsOverviewBody extends StatelessWidget {
+class _PostsOverviewBody extends StatelessWidget {
   final List<Post> posts;
-
-  const PostsOverviewBody({Key? key, required this.posts}) : super(key: key);
+  const _PostsOverviewBody({Key? key, required this.posts}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
