@@ -35,7 +35,7 @@ class _UsersOverviewPageState extends State<UsersOverviewPage> {
               error: 'Failed to load users',
               details: '${snapshot.error}');
           }
-          return const CircularProgressIndicator();
+          return const Center(child: CircularProgressIndicator());
         }
       ),
     );

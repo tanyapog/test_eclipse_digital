@@ -36,7 +36,7 @@ class _PostsOverviewPageState extends State<PostsOverviewPage> {
               error: 'Failed to load posts',
               details: '${snapshot.error}');
           }
-          return const CircularProgressIndicator();
+          return const Center(child: CircularProgressIndicator());
         },
       ),
     );
