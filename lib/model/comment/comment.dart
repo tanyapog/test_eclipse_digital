@@ -1,3 +1,5 @@
+import 'dart:math';
+
 class Comment {
   final int postId;
   final int id;
@@ -21,6 +23,32 @@ class Comment {
       email: json['email'],
       body: json['body'],
     );
+  }
+
+  factory Comment.forPost({
+    required postId,
+    required name,
+    required email,
+    required body,
+  }) {
+    print("pI = $postId, n = $name, e = $email, b = $body");
+    return Comment(
+    postId: postId,
+    id: Random().nextInt(10000)+500,
+    name: name,
+    email: email,
+    body: body,
+  );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'postId': postId,
+      'id': id,
+      'name': name,
+      'email': email,
+      'body': body,
+    };
   }
 }
 

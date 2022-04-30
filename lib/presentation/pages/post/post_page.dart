@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:test_eclipse_digital/model/post/post.dart';
 import 'package:test_eclipse_digital/presentation/pages/post/widgets/Inherited_post.dart';
+import 'package:test_eclipse_digital/presentation/pages/post/widgets/comment_bottom_sheet.dart';
 import 'package:test_eclipse_digital/presentation/pages/post/widgets/comments_list.dart';
 
 class PostPage extends StatelessWidget {
@@ -27,6 +28,19 @@ class PostPage extends StatelessWidget {
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => showModalBottomSheet(
+          context: context,
+          builder: (context) => Padding(
+            padding: MediaQuery.of(context).viewInsets,
+            child: InheritedPost(
+              post: post,
+              child: CommentBottomSheet(),
+            ),
+          ),
+        ),
+        child: const Icon(Icons.chat_bubble_outline),
       ),
     );
   }

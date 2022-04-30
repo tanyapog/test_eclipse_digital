@@ -16,4 +16,17 @@ class CommentRepository {
       throw Exception('Error while loading comments');
     }
   }
+  
+  Future<Comment> createComment(Comment comment) async {
+    final response = await http.post(
+      Uri.parse('https://jsonplaceholder.typicode.com/posts'),
+      headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8',},
+      body: jsonEncode(comment.toJson())
+    );
+    if (response.statusCode == 201) { // CREATED response
+      return Comment.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Error while create a comment');
+    }
+  }
 }
