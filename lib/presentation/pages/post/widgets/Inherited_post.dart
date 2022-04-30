@@ -20,7 +20,6 @@ class InheritedPost extends InheritedWidget {
   }
 
   @override
-  bool updateShouldNotify(covariant InheritedPost oldWidget) {
-    return post != oldWidget.post;
-  }
+  bool updateShouldNotify(covariant InheritedPost oldWidget) =>
+    post != oldWidget.post;
 }
