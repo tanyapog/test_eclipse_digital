@@ -12,7 +12,8 @@ class CommentBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(8),
+      padding: MediaQuery.of(context).viewInsets,
+      margin: const EdgeInsets.symmetric(horizontal: 8),
       child: Form(
         key: _commentFormKey,
         child: Column(
@@ -43,7 +44,7 @@ class CommentBottomSheet extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 10,),
-            Expanded(
+            Flexible(
               child: TextFormField(
                 decoration: InputDecoration(
                   hintText: 'leave comment...',
@@ -51,7 +52,7 @@ class CommentBottomSheet extends StatelessWidget {
                 ),
                 maxLength: 1000,
                 minLines: 3,
-                maxLines: 5,
+                maxLines: 3,
                 validator: (value) => (value == null || value.isEmpty)
                   ? 'Type something'
                   : null,
@@ -78,7 +79,7 @@ class _SendButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: Alignment.bottomRight,
+      alignment: Alignment.topRight,
       child: TextButton(
         onPressed: () async {
           if (formKey.currentState!.validate()) {

@@ -32,12 +32,10 @@ class PostPage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () => showModalBottomSheet(
           context: context,
-          builder: (context) => Padding(
-            padding: MediaQuery.of(context).viewInsets,
-            child: InheritedPost(
-              post: post,
-              child: CommentBottomSheet(),
-            ),
+          isScrollControlled: true,
+          builder: (context) => InheritedPost(
+            post: post,
+            child: CommentBottomSheet(),
           ),
         ),
         child: const Icon(Icons.chat_bubble_outline),
