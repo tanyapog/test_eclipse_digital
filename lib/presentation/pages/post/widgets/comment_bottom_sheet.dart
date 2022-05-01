@@ -34,7 +34,9 @@ class CommentBottomSheet extends StatelessWidget {
                 const SizedBox(width: 10,),
                 Expanded(
                   child: TextFormField(
-                    decoration: const InputDecoration(hintText: 'email'),
+                    decoration: const InputDecoration(
+                      prefixIcon: Icon(Icons.email),
+                      hintText: 'email'),
                     validator: (value) => (value == null || value.isEmpty)
                       ? 'Enter the email, please'
                       : null,
