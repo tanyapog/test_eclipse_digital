@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:test_eclipse_digital/model/user/address.dart';
+import 'package:test_eclipse_digital/presentation/pages/user/widgets/inherited_user.dart';
 
 class AddressCard extends StatelessWidget {
-  const AddressCard({Key? key, required this.address}) : super(key: key);
-  final Address address;
+  const AddressCard({Key? key,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final address = InheritedUser.of(context).user.address;
     return Card(
       elevation: 10,
       child: ListTile(

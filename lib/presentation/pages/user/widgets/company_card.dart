@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:test_eclipse_digital/model/user/company.dart';
+import 'package:test_eclipse_digital/presentation/pages/user/widgets/inherited_user.dart';
 
 class CompanyCard extends StatelessWidget {
-  const CompanyCard({Key? key, required this.company}) : super(key: key);
-  final Company company;
+  const CompanyCard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final company = InheritedUser.of(context).user.company;
     return Card(
       elevation: 10,
       child: Column(
