@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:test_eclipse_digital/infrastructure/album_repository.dart';
 import 'package:test_eclipse_digital/model/album/album.dart';
 import 'package:test_eclipse_digital/presentation/custom_widgets/error_display.dart';
+import 'package:test_eclipse_digital/presentation/pages/album/widgets/album_cover.dart';
 
 class AlbumsOverviewPage extends StatefulWidget {
   final int userId;
@@ -31,8 +32,8 @@ class _AlbumsOverviewPageState extends State<AlbumsOverviewPage> {
             return _AlbumsOverviewBody(albums: snapshot.data!);
           } else if (snapshot.hasError) {
             return ErrorDisplay(
-                error: 'Failed to load albums',
-                details: '${snapshot.error}');
+              error: 'Failed to load albums',
+              details: '${snapshot.error}');
           }
           return const Center(child: CircularProgressIndicator());
         },
@@ -47,19 +48,27 @@ class _AlbumsOverviewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Flexible(
-          child: ListView.builder(
-            itemCount: albums.length,
-            itemBuilder: (context, i) => ListTile(
-              onTap: () {},
-              leading: const Icon(Icons.image),
-              title: Text(albums[i].title),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          Flexible(
+            child: ListView.builder(
+              itemCount: albums.length,
+              itemBuilder: (context, i) => Column(
+                children: [
+                  ListTile(
+                    onTap: () {},
+                    leading: AlbumCover(albumId: albums[i].id,),
+                    title: Text(albums[i].title),
+                  ),
+                  const SizedBox(height: 8,),
+                ],
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
