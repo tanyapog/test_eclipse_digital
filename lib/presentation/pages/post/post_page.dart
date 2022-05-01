@@ -35,7 +35,7 @@ class PostPage extends StatelessWidget {
           isScrollControlled: true,
           builder: (context) => InheritedPost(
             post: post,
-            child: CommentBottomSheet(),
+            child: const CommentBottomSheet(),
           ),
         ),
         child: const Icon(Icons.chat_bubble_outline),

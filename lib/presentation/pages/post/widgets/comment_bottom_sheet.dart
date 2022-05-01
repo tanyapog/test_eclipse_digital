@@ -3,11 +3,15 @@ import 'package:test_eclipse_digital/infrastructure/comment_repository.dart';
 import 'package:test_eclipse_digital/model/comment/comment.dart';
 import 'package:test_eclipse_digital/presentation/pages/post/widgets/Inherited_post.dart';
 
-class CommentBottomSheet extends StatelessWidget {
-  CommentBottomSheet({Key? key}) : super(key: key);
-
-  final _commentFormKey = GlobalKey<FormState>();
+class CommentBottomSheet extends StatefulWidget {
+  const CommentBottomSheet({Key? key}) : super(key: key);
   static final Map<String, dynamic> _formData = {};
+  @override
+  State<CommentBottomSheet> createState() => _CommentBottomSheetState();
+}
+
+class _CommentBottomSheetState extends State<CommentBottomSheet> {
+  final _commentFormKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +32,7 @@ class CommentBottomSheet extends StatelessWidget {
                     validator: (value) => (value == null || value.isEmpty)
                       ? 'Enter the name, please'
                       : null,
-                    onSaved: (value) => _formData['name'] = value,
+                    onSaved: (value) => CommentBottomSheet._formData['name'] = value,
                   ),
                 ),
                 const SizedBox(width: 10,),
@@ -40,7 +44,7 @@ class CommentBottomSheet extends StatelessWidget {
                     validator: (value) => (value == null || value.isEmpty)
                       ? 'Enter the email, please'
                       : null,
-                    onSaved: (value) => _formData['email'] = value,
+                    onSaved: (value) => CommentBottomSheet._formData['email'] = value,
                   ),
                 ),
               ],
@@ -58,10 +62,10 @@ class CommentBottomSheet extends StatelessWidget {
                 validator: (value) => (value == null || value.isEmpty)
                   ? 'Type something'
                   : null,
-                onSaved: (value) => _formData['body'] = value,
+                onSaved: (value) => CommentBottomSheet._formData['body'] = value,
               ),
             ),
-            _SendButton(formKey: _commentFormKey ,formData: _formData,),
+            _SendButton(formKey: _commentFormKey ,formData: CommentBottomSheet._formData,),
           ],
       ),
     ));
