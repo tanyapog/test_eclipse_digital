@@ -1,8 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:test_eclipse_digital/infrastructure/album_repository.dart';
 import 'package:test_eclipse_digital/model/album/album.dart';
 import 'package:test_eclipse_digital/presentation/custom_widgets/error_display.dart';
 import 'package:test_eclipse_digital/presentation/pages/album/widgets/album_cover.dart';
+import 'package:test_eclipse_digital/presentation/routes/router.gr.dart';
 
 class AlbumsOverviewPage extends StatefulWidget {
   final int userId;
@@ -58,7 +60,7 @@ class _AlbumsOverviewBody extends StatelessWidget {
               itemBuilder: (context, i) => Column(
                 children: [
                   ListTile(
-                    onTap: () {},
+                    onTap: () => AutoRouter.of(context).push(AlbumRoute(album: albums[i])),
                     leading: AlbumCover(albumId: albums[i].id,),
                     title: Text(albums[i].title),
                   ),
