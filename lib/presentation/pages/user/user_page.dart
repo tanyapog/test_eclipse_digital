@@ -44,9 +44,18 @@ class UserPage extends StatelessWidget {
           ),
           CompanyCard(company: user.company),
           AddressCard(address: user.address),
-          TextButton(onPressed: () => AutoRouter.of(context)
-              .push(PostsOverviewRoute(userId: user.id)),
-            child: const Text('Posts'),
+          Row(
+            children: [
+              TextButton(onPressed: () => AutoRouter.of(context)
+                  .push(PostsOverviewRoute(userId: user.id)),
+                child: const Text('Posts'),
+              ),
+              const SizedBox(width: 10,),
+              TextButton(onPressed: () => AutoRouter.of(context)
+                  .push(AlbumsOverviewRoute(userId: user.id)),
+                child: const Text('Albums'),
+              ),
+            ],
           ),
         ],
       ),
