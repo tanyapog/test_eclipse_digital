@@ -7,16 +7,17 @@ class CompanyCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final company = InheritedUser.of(context).user.company;
-    return Card(
-      elevation: 10,
+    return Container(
+      alignment: Alignment.centerLeft,
+      padding: const EdgeInsets.fromLTRB(0, 16, 16, 0),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
+          Text(company.name, style: const TextStyle(fontSize: 20),),
+          Text(company.bs),
           ListTile(
-            title: Text(company.name),
-            subtitle: Text(company.bs),
-          ),
-          ListTile(
+            contentPadding: const EdgeInsets.all(0),
             leading: const Icon(Icons.format_quote_rounded, color: Colors.teal,),
             title: Text(company.catchPhrase, style: const TextStyle(
               fontStyle: FontStyle.italic,

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:test_eclipse_digital/presentation/pages/user/widgets/inherited_user.dart';
 
@@ -7,14 +8,24 @@ class AddressCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final address = InheritedUser.of(context).user.address;
-    return Card(
-      elevation: 10,
-      child: ListTile(
-        leading: const Icon(Icons.home),
-        title: Text(address.street),
-        subtitle: Text('${address.city}, ${address.suite}\n${address.zipcode}'),
-        isThreeLine: true,
-      ),
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Padding(
+          padding: EdgeInsets.symmetric(vertical: 8.0),
+          child: Icon(Icons.home, size: 18, color: Colors.black45,),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('${address.street}, ${address.suite}',),
+              Text('${address.city}, ${address.zipcode}', ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
