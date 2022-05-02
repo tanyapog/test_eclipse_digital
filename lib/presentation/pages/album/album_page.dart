@@ -1,8 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:test_eclipse_digital/infrastructure/photo_repository.dart';
 import 'package:test_eclipse_digital/model/album/album.dart';
 import 'package:test_eclipse_digital/model/album/photo.dart';
 import 'package:test_eclipse_digital/presentation/custom_widgets/error_display.dart';
+import 'package:test_eclipse_digital/presentation/routes/router.gr.dart';
 
 class AlbumPage extends StatefulWidget {
   final Album album;
@@ -63,13 +65,20 @@ class _AlbumBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: GridView.count(
-        crossAxisCount: 2,
-        mainAxisSpacing: 8,
-        crossAxisSpacing: 8,
-        childAspectRatio: 1,
-        children: photos.map((photo) => _GridItem(photo: photo)).toList(),
-      ),
+      child: GridView.builder(
+        itemCount: photos.length,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          mainAxisSpacing: 8,
+          crossAxisSpacing: 8,
+          childAspectRatio: 1,
+        ),
+        itemBuilder: (context, i) => InkWell(
+          onTap: () => AutoRouter.of(context)
+            .push(PhotoCarouselRoute(photos: photos, startFrom: i)),
+          child: _GridItem(photo: photos[i])
+        ),
+      )
     );
   }
 }
