@@ -61,7 +61,7 @@ class _AlbumsOverviewBody extends StatelessWidget {
                 children: [
                   ListTile(
                     onTap: () => AutoRouter.of(context).push(AlbumRoute(album: albums[i])),
-                    leading: AlbumCover(albumId: albums[i].id,),
+                    leading: AlbumCover.rounded(albumId: albums[i].id,),
                     title: Text(albums[i].title),
                   ),
                   const SizedBox(height: 8,),
