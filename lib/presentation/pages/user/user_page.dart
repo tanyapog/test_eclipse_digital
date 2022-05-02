@@ -1,11 +1,11 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:test_eclipse_digital/model/user/user.dart';
 import 'package:test_eclipse_digital/presentation/pages/user/widgets/address_card.dart';
+import 'package:test_eclipse_digital/presentation/pages/user/widgets/albums_preview.dart';
 import 'package:test_eclipse_digital/presentation/pages/user/widgets/company_card.dart';
 import 'package:test_eclipse_digital/presentation/pages/user/widgets/inherited_user.dart';
 import 'package:test_eclipse_digital/presentation/pages/user/widgets/minimalistic_tile.dart';
-import 'package:test_eclipse_digital/presentation/routes/router.gr.dart';
+import 'package:test_eclipse_digital/presentation/pages/user/widgets/posts_preview.dart';
 
 class UserPage extends StatelessWidget {
   const UserPage({Key? key, required this.user}) : super(key: key);
@@ -42,19 +42,10 @@ class UserPage extends StatelessWidget {
                   ],
                 ),
               ),
-              Row(
-                children: [
-                  TextButton(onPressed: () => AutoRouter.of(context)
-                      .push(PostsOverviewRoute(userId: user.id)),
-                    child: const Text('Posts'),
-                  ),
-                  const SizedBox(width: 10,),
-                  TextButton(onPressed: () => AutoRouter.of(context)
-                      .push(AlbumsOverviewRoute(userId: user.id)),
-                    child: const Text('Albums'),
-                  ),
-                ],
-              ),
+              const Divider(color: Colors.black45,),
+              const PostsPreview(),
+              const Divider(color: Colors.black45,),
+              const AlbumsPreview(),
             ],
           ),
         ),
