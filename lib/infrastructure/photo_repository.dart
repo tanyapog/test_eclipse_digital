@@ -3,6 +3,12 @@ import 'package:http/http.dart' as http;
 import 'package:test_eclipse_digital/model/album/photo.dart';
 
 class PhotoRepository {
+  static final PhotoRepository _instance = PhotoRepository._internal();
+
+  factory PhotoRepository() => _instance;
+
+  PhotoRepository._internal();
+  
   Future<List<Photo>> fetchPhotos(int albumId) async {
     final response = await http
         .get(Uri.parse('https://jsonplaceholder.typicode.com/photos'));

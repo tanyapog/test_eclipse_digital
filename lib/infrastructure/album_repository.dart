@@ -1,9 +1,14 @@
 import 'dart:convert';
-
 import 'package:test_eclipse_digital/model/album/album.dart';
 import 'package:http/http.dart' as http;
 
 class AlbumRepository {
+  static final AlbumRepository _instance = AlbumRepository._internal();
+
+  factory AlbumRepository() => _instance;
+
+  AlbumRepository._internal();
+
   Future<List<Album>> fetchAlbums(int userId) async {
     final response = await http
         .get(Uri.parse('https://jsonplaceholder.typicode.com/albums'));

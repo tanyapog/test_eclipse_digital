@@ -1,9 +1,14 @@
 import 'dart:convert';
-
 import 'package:test_eclipse_digital/model/comment/comment.dart';
 import 'package:http/http.dart' as http;
 
 class CommentRepository {
+  static final CommentRepository _instance = CommentRepository._internal();
+
+  factory CommentRepository() => _instance;
+
+  CommentRepository._internal();
+  
   Future<List<Comment>> fetchComments(int postId) async {
     final response = await http
       .get(Uri.parse('https://jsonplaceholder.typicode.com/comments'));

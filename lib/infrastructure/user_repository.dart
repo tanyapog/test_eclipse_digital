@@ -1,9 +1,14 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
 import 'package:test_eclipse_digital/model/user/user.dart';
 
 class UserRepository {
+  static final UserRepository _instance = UserRepository._internal();
+
+  factory UserRepository() => _instance;
+
+  UserRepository._internal();
+  
   Future<List<User>> fetchUsers() async {
     final response = await http
       .get(Uri.parse('https://jsonplaceholder.typicode.com/users'));
