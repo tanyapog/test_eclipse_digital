@@ -1,15 +1,32 @@
 import 'dart:convert';
+import 'package:test_eclipse_digital/infrastructure/hive_service.dart';
 import 'package:test_eclipse_digital/model/comment/comment.dart';
 import 'package:http/http.dart' as http;
 
 class CommentRepository {
   static final CommentRepository _instance = CommentRepository._internal();
+  final hiveService = HiveService();
+  final boxName = 'CommentsBox';
 
   factory CommentRepository() => _instance;
 
   CommentRepository._internal();
   
   Future<List<Comment>> fetchComments(int postId) async {
+    List<Comment> comments;
+    final commentsCached = await hiveService.isCached(boxName: boxName);
+    if (commentsCached) {
+      comments = await hiveService.getAllFromBox<Comment>(boxName)
+        // если ошибка, то загружаем из API
+        .onError((error, stackTrace) async => await _fetchFromJsonPlaceholder(postId));
+    } else {
+      comments = await _fetchFromJsonPlaceholder(postId);
+      hiveService.addAllToBox<Comment>(comments, boxName);
+    }
+    return comments;
+  }
+
+  Future<List<Comment>> _fetchFromJsonPlaceholder(int postId) async {
     final response = await http
       .get(Uri.parse('https://jsonplaceholder.typicode.com/comments'));
     if (response.statusCode == 200) {
@@ -29,6 +46,8 @@ class CommentRepository {
       body: jsonEncode(comment.toJson())
     );
     if (response.statusCode == 201) { // CREATED response
+      // если бы коммент добавлялся по настоящему, то его нужно было бы сразу закэшировать
+      // hiveService.addToBox(comment, boxName);
       return Comment.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Error while create a comment');

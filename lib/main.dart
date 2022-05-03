@@ -8,6 +8,7 @@ void main() async {
   Hive.registerAdapter(CompanyAdapter());
   Hive.registerAdapter(AddressAdapter());
   Hive.registerAdapter(PostAdapter());
+  Hive.registerAdapter(CommentAdapter());
 
   runApp(MyApp());
 }
