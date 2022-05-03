@@ -9,6 +9,7 @@ void main() async {
   Hive.registerAdapter(AddressAdapter());
   Hive.registerAdapter(PostAdapter());
   Hive.registerAdapter(CommentAdapter());
+  Hive.registerAdapter(AlbumAdapter());
 
   runApp(MyApp());
 }
