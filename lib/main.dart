@@ -7,6 +7,7 @@ void main() async {
   Hive.registerAdapter(UserAdapter());
   Hive.registerAdapter(CompanyAdapter());
   Hive.registerAdapter(AddressAdapter());
+  Hive.registerAdapter(PostAdapter());
 
   runApp(MyApp());
 }
