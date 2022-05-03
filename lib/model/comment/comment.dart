@@ -31,7 +31,6 @@ class Comment {
     required email,
     required body,
   }) {
-    print("pI = $postId, n = $name, e = $email, b = $body");
     return Comment(
     postId: postId,
     id: Random().nextInt(10000)+500,

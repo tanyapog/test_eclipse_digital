@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:test_eclipse_digital/presentation/pages/user/widgets/inherited_user.dart';
 
