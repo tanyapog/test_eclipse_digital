@@ -1,7 +1,16 @@
+import 'package:hive/hive.dart';
+
+part 'address.g.dart';
+
+@HiveType(typeId: 3)
 class Address {
+  @HiveField(0)
   final String street;
+  @HiveField(1)
   final String suite;
+  @HiveField(2)
   final String city;
+  @HiveField(3)
   final String zipcode;
 
   Address({
