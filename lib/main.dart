@@ -1,4 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:test_eclipse_digital/model/album/album.dart';
+import 'package:test_eclipse_digital/model/comment/comment.dart';
+import 'package:test_eclipse_digital/model/post/post.dart';
+import 'package:test_eclipse_digital/model/user/address.dart';
+import 'package:test_eclipse_digital/model/user/company.dart';
+import 'package:test_eclipse_digital/model/user/user.dart';
 import 'package:test_eclipse_digital/presentation/routes/router.gr.dart' as app_router;
 
 bool cachingIsOn = true;
