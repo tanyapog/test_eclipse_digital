@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:test_eclipse_digital/presentation/routes/router.gr.dart' as app_router;
 
-void main() async {
-  // всё необходимое для кэширования
-  await Hive.initFlutter();
-  Hive.registerAdapter(UserAdapter());
-  Hive.registerAdapter(CompanyAdapter());
-  Hive.registerAdapter(AddressAdapter());
-  Hive.registerAdapter(PostAdapter());
-  Hive.registerAdapter(CommentAdapter());
-  Hive.registerAdapter(AlbumAdapter());
+bool cachingIsOn = false;
 
+void main() async {
+  if (cachingIsOn) {
+    // всё необходимое для кэширования
+    await Hive.initFlutter();
+    Hive.registerAdapter(UserAdapter());
+    Hive.registerAdapter(CompanyAdapter());
+    Hive.registerAdapter(AddressAdapter());
+    Hive.registerAdapter(PostAdapter());
+    Hive.registerAdapter(CommentAdapter());
+    Hive.registerAdapter(AlbumAdapter());
+  }
   runApp(MyApp());
 }
 

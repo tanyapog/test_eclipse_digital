@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:test_eclipse_digital/infrastructure/hive_service.dart';
+import 'package:test_eclipse_digital/main.dart';
 import 'package:test_eclipse_digital/model/post/post.dart';
 import 'package:http/http.dart' as http;
 
@@ -13,16 +14,20 @@ class PostRepository {
   PostRepository._internal();
 
   Future<List<Post>> fetchPosts(int userId) async {
-    List<Post> posts = await hiveService.getAllFromBox<Post>(boxName)
-      .onError((error, stackTrace) async {
-        print("::: loading from $boxName for $userId failed: $error");
-        return await _fetchFromJsonPlaceholder(userId);
-      });
-    if (posts.isEmpty) {
-      posts = await _fetchFromJsonPlaceholder(userId);
-      hiveService.addAllToBox<Post>(posts, boxName);
+    if (cachingIsOn)  {
+      List<Post> posts = await hiveService.getAllFromBox<Post>(boxName)
+        .onError((error, stackTrace) async {
+          print("::: loading from $boxName for $userId failed: $error");
+          return await _fetchFromJsonPlaceholder(userId);
+        });
+      if (posts.isEmpty) {
+        posts = await _fetchFromJsonPlaceholder(userId);
+        hiveService.addAllToBox<Post>(posts, boxName);
+      }
+      return posts;
+    } else {
+      return await _fetchFromJsonPlaceholder(userId);
     }
-    return posts;
   }
 
   Future<List<Post>> _fetchFromJsonPlaceholder(int userId) async {
