@@ -7,7 +7,6 @@ import 'package:http/http.dart' as http;
 class CommentRepository {
   static final CommentRepository _instance = CommentRepository._internal();
   final hiveService = HiveService();
-  final boxName = 'CommentsBox';
 
   factory CommentRepository() => _instance;
 
@@ -15,6 +14,7 @@ class CommentRepository {
   
   Future<List<Comment>> fetchComments(int postId) async {
     if (cachingIsOn)  {
+      final boxName = 'comments_p$postId';
       List<Comment> comments = await hiveService.getAllFromBox<Comment>(boxName)
         .onError((error, stackTrace) async {
           print("::: loading from $boxName for $postId failed: $error");

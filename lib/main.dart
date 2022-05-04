@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:test_eclipse_digital/presentation/routes/router.gr.dart' as app_router;
 
-bool cachingIsOn = false;
+bool cachingIsOn = true;
 
 void main() async {
   if (cachingIsOn) {

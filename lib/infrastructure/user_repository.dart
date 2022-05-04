@@ -7,7 +7,6 @@ import 'package:test_eclipse_digital/model/user/user.dart';
 class UserRepository {
   static final UserRepository _instance = UserRepository._internal();
   final hiveService = HiveService();
-  final boxName = 'UsersBox';
 
   factory UserRepository() => _instance;
 
@@ -15,6 +14,7 @@ class UserRepository {
   
   Future<List<User>> fetchUsers() async {
     if (cachingIsOn)  {
+      const boxName = 'users';
       List<User> users = await hiveService.getAllFromBox<User>(boxName)
         .onError((error, stackTrace) async {
           print("::: loading from $boxName failed: $error");

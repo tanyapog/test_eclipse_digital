@@ -7,7 +7,6 @@ import 'package:http/http.dart' as http;
 class PostRepository {
   static final PostRepository _instance = PostRepository._internal();
   final hiveService = HiveService();
-  final boxName = 'PostsBox';
 
   factory PostRepository() => _instance;
 
@@ -15,6 +14,7 @@ class PostRepository {
 
   Future<List<Post>> fetchPosts(int userId) async {
     if (cachingIsOn)  {
+      final boxName = 'posts_u$userId';
       List<Post> posts = await hiveService.getAllFromBox<Post>(boxName)
         .onError((error, stackTrace) async {
           print("::: loading from $boxName for $userId failed: $error");

@@ -7,7 +7,6 @@ import 'package:http/http.dart' as http;
 class AlbumRepository {
   static final AlbumRepository _instance = AlbumRepository._internal();
   final hiveService = HiveService();
-  final boxName = 'AlbumsBox';
 
   factory AlbumRepository() => _instance;
 
@@ -15,6 +14,7 @@ class AlbumRepository {
 
   Future<List<Album>> fetchAlbums(int userId) async {
     if (cachingIsOn)  {
+      final boxName = 'albums_u$userId';
       List<Album> albums = await hiveService.getAllFromBox<Album>(boxName)
         .onError((error, stackTrace) async {
           print("::: loading from $boxName for $userId failed: $error");
