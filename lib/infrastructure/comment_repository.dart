@@ -17,7 +17,7 @@ class CommentRepository {
       final boxName = 'comments_p$postId';
       List<Comment> comments = await hiveService.getAllFromBox<Comment>(boxName)
         .onError((error, stackTrace) async {
-          print("::: loading from $boxName for $postId failed: $error");
+          print("::: loading from $boxName failed: $error");
           return await _fetchFromJsonPlaceholder(postId);
         });
       if (comments.isEmpty) {

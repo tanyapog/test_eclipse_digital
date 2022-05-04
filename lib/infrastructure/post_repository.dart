@@ -17,7 +17,7 @@ class PostRepository {
       final boxName = 'posts_u$userId';
       List<Post> posts = await hiveService.getAllFromBox<Post>(boxName)
         .onError((error, stackTrace) async {
-          print("::: loading from $boxName for $userId failed: $error");
+          print("::: loading from $boxName failed: $error");
           return await _fetchFromJsonPlaceholder(userId);
         });
       if (posts.isEmpty) {

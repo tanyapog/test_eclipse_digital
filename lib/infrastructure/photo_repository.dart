@@ -24,7 +24,6 @@ class PhotoRepository {
         });
       if (photos.isEmpty) {
         photos = await _fetchFromJsonPlaceholder(albumId);
-        print("::: going to cache ${photos.length} to $boxName");
         hiveService.addAllToBox<Photo>(photos, boxName);
       }
       return photos;
@@ -44,7 +43,6 @@ class PhotoRepository {
         });
       if (cachedCover == null) {
         cachedCover = (await fetchPhotos(albumId)).first;
-        print("::: going to cache $coverKey to $boxName");
         await hiveService.putToBox(coverKey, cachedCover, boxName);
       }
       return cachedCover;

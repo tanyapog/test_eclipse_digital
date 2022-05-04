@@ -17,7 +17,7 @@ class AlbumRepository {
       final boxName = 'albums_u$userId';
       List<Album> albums = await hiveService.getAllFromBox<Album>(boxName)
         .onError((error, stackTrace) async {
-          print("::: loading from $boxName for $userId failed: $error");
+          print("::: loading from $boxName failed: $error");
           return await _fetchFromJsonPlaceholder(userId);
         });
       if (albums.isEmpty) {
