@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:test_eclipse_digital/infrastructure/hive_service.dart';
-import 'package:test_eclipse_digital/main.dart';
 import 'package:test_eclipse_digital/model/comment/comment.dart';
 import 'package:http/http.dart' as http;
 
@@ -13,21 +12,17 @@ class CommentRepository {
   CommentRepository._internal();
   
   Future<List<Comment>> fetchComments(int postId) async {
-    if (cachingIsOn)  {
-      final boxName = 'comments_p$postId';
-      List<Comment> comments = await hiveService.getAllFromBox<Comment>(boxName)
-        .onError((error, stackTrace) async {
-          print("::: loading from $boxName failed: $error");
-          return await _fetchFromJsonPlaceholder(postId);
-        });
-      if (comments.isEmpty) {
-        comments = await _fetchFromJsonPlaceholder(postId);
-        hiveService.addAllToBox<Comment>(comments, boxName);
-      }
-      return comments;
-    } else {
-      return await _fetchFromJsonPlaceholder(postId);
+    final boxName = 'comments_p$postId';
+    List<Comment> comments = await hiveService.getAllFromBox<Comment>(boxName)
+      .onError((error, stackTrace) async {
+        print("::: loading from $boxName failed: $error");
+        return await _fetchFromJsonPlaceholder(postId);
+      });
+    if (comments.isEmpty) {
+      comments = await _fetchFromJsonPlaceholder(postId);
+      hiveService.addAllToBox<Comment>(comments, boxName);
     }
+    return comments;
   }
 
   Future<List<Comment>> _fetchFromJsonPlaceholder(int postId) async {

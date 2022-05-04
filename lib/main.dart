@@ -9,20 +9,17 @@ import 'package:test_eclipse_digital/model/user/company.dart';
 import 'package:test_eclipse_digital/model/user/user.dart';
 import 'package:test_eclipse_digital/presentation/routes/router.gr.dart' as app_router;
 
-bool cachingIsOn = true;
-
 void main() async {
-  if (cachingIsOn) {
-    // всё необходимое для кэширования
-    await Hive.initFlutter();
-    Hive.registerAdapter(UserAdapter());
-    Hive.registerAdapter(CompanyAdapter());
-    Hive.registerAdapter(AddressAdapter());
-    Hive.registerAdapter(PostAdapter());
-    Hive.registerAdapter(CommentAdapter());
-    Hive.registerAdapter(AlbumAdapter());
-    Hive.registerAdapter(PhotoAdapter());
-  }
+  // всё необходимое для кэширования
+  await Hive.initFlutter();
+  Hive.registerAdapter(UserAdapter());
+  Hive.registerAdapter(CompanyAdapter());
+  Hive.registerAdapter(AddressAdapter());
+  Hive.registerAdapter(PostAdapter());
+  Hive.registerAdapter(CommentAdapter());
+  Hive.registerAdapter(AlbumAdapter());
+  Hive.registerAdapter(PhotoAdapter());
+
   runApp(MyApp());
 }
 
