@@ -10,6 +10,7 @@ class PhotoRepository {
   PhotoRepository._internal();
   
   Future<List<Photo>> fetchPhotos(int albumId) async {
+    print("::: photos for album $albumId will be fetched from JsonPlaceholder");
     final response = await http
         .get(Uri.parse('https://jsonplaceholder.typicode.com/photos'));
 
@@ -24,6 +25,7 @@ class PhotoRepository {
   }
 
   Future<Photo> fetchFirst(int albumId) async {
+    print("::: first photo for album $albumId will be fetched from JsonPlaceholder");
     final response = await http
         .get(Uri.parse('https://jsonplaceholder.typicode.com/photos'));
 

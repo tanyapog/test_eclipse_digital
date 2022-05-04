@@ -13,13 +13,12 @@ class CommentRepository {
   CommentRepository._internal();
   
   Future<List<Comment>> fetchComments(int postId) async {
-    List<Comment> comments;
-    final commentsCached = await hiveService.isCached(boxName: boxName);
-    if (commentsCached) {
-      comments = await hiveService.getAllFromBox<Comment>(boxName)
-        // если ошибка, то загружаем из API
-        .onError((error, stackTrace) async => await _fetchFromJsonPlaceholder(postId));
-    } else {
+    List<Comment> comments = await hiveService.getAllFromBox<Comment>(boxName)
+      .onError((error, stackTrace) async {
+        print("::: loading from $boxName for $postId failed: $error");
+        return await _fetchFromJsonPlaceholder(postId);
+      });
+    if (comments.isEmpty) {
       comments = await _fetchFromJsonPlaceholder(postId);
       hiveService.addAllToBox<Comment>(comments, boxName);
     }
@@ -27,6 +26,7 @@ class CommentRepository {
   }
 
   Future<List<Comment>> _fetchFromJsonPlaceholder(int postId) async {
+    print("::: comments for post $postId will be fetched from JsonPlaceholder");
     final response = await http
       .get(Uri.parse('https://jsonplaceholder.typicode.com/comments'));
     if (response.statusCode == 200) {

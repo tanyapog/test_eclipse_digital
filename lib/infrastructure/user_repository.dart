@@ -13,13 +13,12 @@ class UserRepository {
   UserRepository._internal();
   
   Future<List<User>> fetchUsers() async {
-    List<User> users;
-    final usersCached = await hiveService.isCached(boxName: boxName);
-    if (usersCached) {
-      users = await hiveService.getAllFromBox<User>(boxName)
-        // если ошибка, то загружаем из API
-        .onError((error, stackTrace) async => await _fetchFromJsonPlaceholder());
-    } else {
+    List<User> users = await hiveService.getAllFromBox<User>(boxName)
+      .onError((error, stackTrace) async {
+        print("::: loading from $boxName failed: $error");
+        return await _fetchFromJsonPlaceholder();
+      });
+    if (users.isEmpty) {
       users = await _fetchFromJsonPlaceholder();
       hiveService.addAllToBox<User>(users, boxName);
     }
@@ -27,6 +26,7 @@ class UserRepository {
   }
 
   Future<List<User>> _fetchFromJsonPlaceholder() async {
+    print("::: users will be fetched from JsonPlaceholder");
     final response = await http
       .get(Uri.parse('https://jsonplaceholder.typicode.com/users'));
 

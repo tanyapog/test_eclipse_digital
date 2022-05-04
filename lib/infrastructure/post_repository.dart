@@ -13,13 +13,12 @@ class PostRepository {
   PostRepository._internal();
 
   Future<List<Post>> fetchPosts(int userId) async {
-    List<Post> posts;
-    final postsCached = await hiveService.isCached(boxName: boxName);
-    if (postsCached) {
-      posts = await hiveService.getAllFromBox<Post>(boxName)
-        // если ошибка, то загружаем из API
-        .onError((error, stackTrace) async => await _fetchFromJsonPlaceholder(userId));
-    } else {
+    List<Post> posts = await hiveService.getAllFromBox<Post>(boxName)
+      .onError((error, stackTrace) async {
+        print("::: loading from $boxName for $userId failed: $error");
+        return await _fetchFromJsonPlaceholder(userId);
+      });
+    if (posts.isEmpty) {
       posts = await _fetchFromJsonPlaceholder(userId);
       hiveService.addAllToBox<Post>(posts, boxName);
     }
@@ -27,6 +26,7 @@ class PostRepository {
   }
 
   Future<List<Post>> _fetchFromJsonPlaceholder(int userId) async {
+    print("::: posts for user $userId will be fetched from JsonPlaceholder");
     final response = await http
       .get(Uri.parse('https://jsonplaceholder.typicode.com/posts'));
 

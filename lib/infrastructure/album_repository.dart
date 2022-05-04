@@ -13,13 +13,12 @@ class AlbumRepository {
   AlbumRepository._internal();
 
   Future<List<Album>> fetchAlbums(int userId) async {
-    List<Album> albums;
-    final albumsCached = await hiveService.isCached(boxName: boxName);
-    if (albumsCached) {
-      albums = await hiveService.getAllFromBox<Album>(boxName)
-        // если ошибка, то загружаем из API
-        .onError((error, stackTrace) async => await _fetchFromJsonPlaceholder(userId));
-    } else {
+    List<Album> albums = await hiveService.getAllFromBox<Album>(boxName)
+      .onError((error, stackTrace) async {
+        print("::: loading from $boxName for $userId failed: $error");
+        return await _fetchFromJsonPlaceholder(userId);
+      });
+    if (albums.isEmpty) {
       albums = await _fetchFromJsonPlaceholder(userId);
       hiveService.addAllToBox<Album>(albums, boxName);
     }
@@ -27,6 +26,7 @@ class AlbumRepository {
   }
 
   Future<List<Album>> _fetchFromJsonPlaceholder(int userId) async {
+    print("::: albums for user $userId will be fetched from JsonPlaceholder");
     final response = await http
       .get(Uri.parse('https://jsonplaceholder.typicode.com/albums'));
 
