@@ -19,7 +19,7 @@ class _AlbumCoverState extends State<AlbumCover> {
   @override
   void initState() {
     super.initState();
-    futureCover = PhotoRepository().fetchFirst(widget.albumId);
+    futureCover = PhotoRepository().fetchCover(widget.albumId);
   }
 
   @override
